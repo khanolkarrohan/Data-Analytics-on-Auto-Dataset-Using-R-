@@ -1,0 +1,583 @@
+---
+title: "MSc_CW1_131990_Rohan_Khanolkar"
+author: "Rohan Khanolkar"
+Course work: Course Work 1  Solution Module Data Analytics Using R
+output:
+  html_document:
+    df_print: paged
+Name: Rohan Khanolkar
+Student No: 13199041
+---
+
+MSc. Advance Computing Technologies 
+date "29/11/2020"
+output html_document
+
+
+1. Statistical learning methods 
+
+For each of parts (a) through (d), indicate whether we would generally expect the performance of a flexible statistical learning method to be better or worse than an inflexible method. Justify your answer. 
+
+(a)	The number of predictors p is extremely large, and the number of observations n is small. 
+
+An overfitting will be caused by flexible model as the size of sample is small. To avoid this,  we must use an inflexible model as there will be a s small reduction in bias and bigger inflation in mean. Apart from this the computational cost will be higher in a flexible method rather than an inflexible method.
+
+(b)	The sample size n is extremely large, and the number of predictors p is small. 
+
+As the sample size is large there is less chances of overfit and it will tend to reduce bias. Thus we need to use a flexible model. This flexible model allows to extract extra information as there is large sample size. As the number of predictors are less the computational cost is less.
+
+(c)	The relationship between the predictors and response is highly non-linear. 
+
+A flexible model will perform better in general because it’ll be necessary to use a flexible model to find the non-linear effect. By using this method we can reduce error as the method will be capable for capturing non-liner relationships.
+
+(d)	The standard deviation of the error terms, i.e. σ = sd(ε), is extremely high. 
+
+In this case we need to use an inflexible method because if the standard deviation of error is high, the variance of error will me square times higher than that. Thus ,higher the variance of error the sample will consist of more noise between the relation of response and predictor.
+
+---------------------------------------------------------------------------------------------------------------------------------------
+2. Bayes’ rule 
+
+Given a dataset including 20 observations (S_1, ..., S_20) about the temperature (i.e. hot or cool) for playing golf (i.e. yes or no), you are required to use the Bayes’ rule to calculate by hand the probability of playing golf according to the temperature, i.e. P(Play Golf | Temperature). 
+
+No. of Days	Temperature	Play Golf
+S_1	Cool	Yes
+S_2	Hot	No
+S_3	Hot	Yes
+S_4	Hot	No
+S_5	Cool	Yes
+S_6	Cool	Yes
+S_7	Hot	No
+S_8	Cool	Yes
+S_9	Hot	No
+S_10	Hot 	Yes
+S_11	Hot	No
+S_12	Hot	No
+S_13	Hot	Yes
+S_14	Cool	No
+S_15	Hot	No
+S_16	Hot	No
+S_17	Cool	Yes
+S_18	Cool	No
+S_19	Cool	No
+S_20	Hot	No
+
+The Data is  of 20 records
+
+-	P(E = Cool) = 8/20 = 0.4
+-	P(E=Hot)= 12/20 = 0.6
+
+-	P(H=Yes) = 8/20=  0.4
+-	P(H=No) = 12/20= 0.6
+
+-	P(E= Cool | H= Yes) = 5/8 = 0.625
+-	P(E= Hot | H = Yes) = 3/8 = 0.375
+-	P(E=Cool | H= No) = 3/12 = 0.25
+-	P(E=Hot | H= No) = 9/12 = 0.75
+
+Now Using Bayes’ Rule
+
+P(H | E) = P ( E | H) . P(H)
+		          P(E)
+
+True Positive: 
+P (H = Yes | E = Cool ) = P(E= Cool | H= Yes). P(H= Yes) = 0.625 x 0.4 = 0.625
+				                                P(E= Cool)		         	0.4
+
+False Negative: 
+P (H = Yes | E = Hot ) = P(E= Hot | H= Yes). P(H= Yes) = 0.375 x 0.4 = 0.25
+			                              	P(E= Hot)		          	0.6
+
+
+False Positive: 
+P (H = No | E = Cool ) = P(E= Cool | H= No). P(H= No) = 0.25 x 0.6 = 0.375
+			                            	P(E= Cool)		        	0.4
+
+True Negative: 
+P (H = No | E = Hot ) = P(E= Hot | H= No). P(H= No) = 0.75 x 0.6 = 0.75
+			                           	P(E= Hot)		            0.6
+
+
+
+# 3 )This question involves the Auto dataset included in the “ISLR” package. 
+
+
+(a)	Which of the predictors are quantitative, and which are qualitative? 
+
+    (i)	The following  code were perform to load the packages in library
+
+```{r}
+
+
+library(ISLR)
+
+View(Auto)
+
+# (ii)	Then we use the str() command to identify the features of data set 
+
+str(Auto)
+
+# Thus form the data set we can observe that the Quantitative Predictors are “mpg”, “cylinders”, “displacement”, “horsepower”, “weight”, “acceleration”, “year”  and the Qualitative Predictors are “origin” (as 1 <- American;  2 <- European, 3 <- Japanese) and “name”
+
+```
+
+(b)  What is the range of each quantitative predictor? You can answer this using the range() function. 
+
+```{r}
+# (i) The following  code were perform to find the range for each quantitative predictor:
+range(Auto$mpg)
+range(Auto$cylinders)
+range(Auto$displacement)
+range(Auto$horsepower)
+range(Auto$weight)
+range(Auto$acceleration)
+range(Auto$year)
+
+```
+
+(c)  What is the median and variance of each quantitative predictor? 
+
+```{r}
+# (i) The following codes were performed to find out median of each quantitative predictor
+median(Auto$mpg)
+median(Auto$cylinders)
+median(Auto$displacement)
+median(Auto$horsepower)
+median(Auto$weight)
+median(Auto$acceleration)
+median(Auto$year)
+
+
+#  (ii) The following codes were performed to find out variance of each quantitative predictor
+var(Auto$mpg)
+var(Auto$cylinders)
+var(Auto$displacement)
+var(Auto$horsepower)
+var(Auto$weight)
+var(Auto$acceleration)
+var(Auto$year)
+
+
+```
+
+(d) Now remove the 11th through 79th observations (inclusive) in the dataset. What is the range, median, and variance of each predictor in the subset of the data that remains? 
+
+
+```{r}
+# (i) The following codes were performed to remove 11th through 79th observations:
+AutoSub <- Auto[-c(11:78),]
+View(AutoSub)
+
+# (ii) The following codes were performed to find out range of each quantitative predictor
+
+range(AutoSub$mpg)
+range(AutoSub$cylinders)
+range(AutoSub$displacement)
+range(AutoSub$horsepower)
+range(AutoSub$weight)
+range(AutoSub$acceleration)
+range(AutoSub$year)
+
+# (iii) The following codes were performed to find out median of each quantitative predictor
+
+median(AutoSub$mpg)
+median(AutoSub$cylinders)
+median(AutoSub$displacement)
+median(AutoSub$horsepower)
+median(AutoSub$weight)
+median(AutoSub$acceleration)
+median(AutoSub$year)
+
+# (iv) The following codes were performed to find out variance of each quantitative predictor
+
+var(AutoSub$mpg)
+var(AutoSub$cylinders)
+var(AutoSub$displacement)
+var(AutoSub$horsepower)
+var(AutoSub$weight)
+var(AutoSub$acceleration)
+var(AutoSub$year)
+
+```
+e) Using the full data set, investigate the relationship between individual predictors with the target response gas mileage (mpg) graphically. Comment on your findings. 
+
+```{r}
+# (i) We will compare weight of cars with the milage of cars
+
+Auto.mpg1 <- plot(Auto$weight, Auto$mpg, main = "Comparison of Car Weight to Car Milage", xlab = "Car Weight", ylab = "Car Milage per gallon")
+
+
+```
+From the above graph we can note that, as the weight of the cars increases the milage per gallon decreases. We can note that cars weight between 1500-2500 lbs. give better milage than the cars weight between 4000 to 5000 lbs.
+
+```{r}
+
+# (ii) We will compare the  number of cylinders with the milage of cars
+
+Auto.mpg2 <- plot(Auto$cylinders, Auto$mpg, main = "Comparison of Number of Cylinders to Car Milage", xlab = "Number of Cylinders", ylab = "Car Milage per gallon")
+```
+From the above graph we can note that, as the number of cylinders in the cars increases the milage per gallon decreases. We can note that 4 cylinder cars give better milage than a 8 cylinder cars.
+
+```{r}
+# (iii) We will compare the  number of years with the milage of cars 
+
+Auto.mpg3 <- plot(Auto$year, Auto$mpg, main = "Comparison of Number of Years to Car Milage",xlab = "Number of Model years (modulo 100)", ylab = "Car Milage per gallon")
+
+```
+From the above graph we can note that, as the age of  cars increases the milage per gallon also increases.
+
+```{r}
+# (iv) We will compare the Engine Displacement with the milage of cars 
+
+Auto.mpg4 <- plot(Auto$displacement, Auto$mpg, main = "Comparison of Engine Displacement to Car Milage", xlab = "Engine Displacement (cu. inches)", ylab = "Car Milage per gallon")
+```
+From the above graph we can note that, as the engine displacement in the cars increases the milage per gallon decreases. We can note that cars with 100 cu. inches  gives better milage that cars above 300 cu. inches. 
+```{r}
+# (v) We will compare the Engine Horsepower with the milage of cars
+Auto.mpg5 <- plot(Auto$horsepower, Auto$mpg, main = "Comparison of Engine Horsepower to Car Milage", xlab = "Engine Horsepower", ylab = "Car Milage per gallon")
+
+```
+From the above graph we can note that, as the engine horsepower in the cars increases the milage per gallon decreases. We can note that between 50 to 100 horsepower the cars give a better milage compared to cars above 150 horsepower.
+
+```{r}
+# (vi) We will compare the Car Acceleration (time taken from 0-60mph in seconds) with the milage of cars
+
+Auto.mpg6 <- plot(Auto$acceleration, Auto$mpg, main = "Comparison of Cars Acceleration to Car Milage", xlab = "Time to accelerate from 0 to 60 mph (sec.) ", ylab = "Car Milage per gallon")
+
+```
+From the above graph we can note that, as the more the time take to accelerate from 0 to 60 mph in the cars the milage per gallon increases. Note that the time above 15 sec. to accelerate give more milage than time taken below 10 sec.
+
+```{r}
+# (vii) We will compare the Car Origin with the milage of cars
+
+Auto.mpg7 <- plot(Auto$origin,Auto$mpg, main = "Comparison of Cars Origin to Car Milage",xlab = "Origine of Cars ", ylab = "Car Milage per gallon")
+legend("bottomright",pch =c("1","2","3"), col = c("black", "black", "black"),legend = c("American", "Eurpean", "Japanese"))
+
+
+```
+```{r}
+# Another way for analysing this is by using  Boxplot:
+boxplot(Auto$mpg~Auto$origin, col= c("green", "orange", "blue"), names= c("America","Europe","Japan"), xlab = "Origin of Cars ", ylab = "Car Milage per gallon", main = "Boxplot for Car Origin")
+
+```
+From the above graphs we can note that, on an average Japanese cars give better milage than European and American cars.
+
+(f) Suppose that we wish to predict mpg on the basis of the other variables. Do your plots suggest that any of the other variables might be useful in predicting mpg? Justify your answer. 
+
+Yes, other vectors might be useful, but they are not mentioned in this Auto dataset. For an example, maintenance of car plays a key role in giving better milage and also weather and road traffic condition plays an important role in cars milage. Such missing factors can change the demographics of entire dataset.
+
+----------------------------------------------------------------------------------------------------------------------------------
+
+4. Linear regression (24% | 24%)
+
+This question involves the use of simple linear regression on the Auto dataset. 
+
+(a) Use the lm() function to perform a simple linear regression with mpg as the response and acceleration as the predictor. Use the summary() function to print the results. Comment on the output. For example: 
+
+```{r}
+# We will first perform simple linear regression using lm() function with response as mpg and predictor as Acceleration (time taken from 0-60mph in seconds) :
+
+## this code is continued in sequence to Q 3
+lm.fit <- lm(Auto$mpg~Auto$acceleration)
+lm.fit
+
+# Now we will use the summary() function and obtain the output:
+
+summary(lm.fit)
+```
+In the Residual the value of Min and Max are not equidistant from Median, but the 1Q and 3Q are almost equidistant. The correlation is positive as the values are increasing together. As the Std. Error of intercept is not Zero we can say that there is a linear relationship between X & Y, as the T-value of acceleration is high this signifies that x & y are related. X has significant linear relation with target respond. As the P-value of intercept is low proves that it has strong evidence against null hypotheses. The RSE is High and R-Squared is low, so the quality of model fitting is not good as the relation between adjusted R squared is  implies that it is only 17.71%  between predictor and the response.
+
+
+i.	Is there a relationship between the predictor and the response? 
+
+There is no relationship between predictor and the response as the P-value do not match with each other.
+
+ii.	How strong is the relationship between the predictor and the response?
+
+The value of Adjusted R2 indicates that there is approximately 17.71% of variation in mpg response variable is due to the predictor variable of acceleration.   
+
+iii.	Is the relationship between the predictor and the response positive or negative? 
+
+
+The relationship between the predictor and the response is positive.
+
+iv.	What is the predicted mpg associated with an acceleration of 14.50? What are the associated 97% confidence and prediction intervals? 
+```{r}
+# We will first predict mpg with acceleration of 14.50 with associated 97% confidence interval
+
+lm.fit <- lm(mpg ~ acceleration, data = Auto)
+summary(lm.fit)
+
+predict(lm.fit,data.frame(acceleration = 14.50), interval = "prediction", level = 0.97)
+
+predict(lm.fit,data.frame(acceleration = 14.50), interval = "confidence", level = 0.97)
+
+```
+
+(b)  Plot the response and the predictor. Use the abline() function to display the least squares regression line. 
+
+```{r}
+p_pred <- predict(lm.fit,data.frame(acceleration = 14.50), interval = "prediction", level = 0.97)
+p_conf <- predict(lm.fit,data.frame(acceleration = 14.50), interval = "confidence", level = 0.97)
+
+attach(Auto)
+plot(Auto$acceleration,Auto$mpg, ylab = "Car Milage per gallon",xlab = "Time to accelerate from 0 to 60 mph (sec.)", 
+     main = "Confidence intervals and prediction intervals")
+abline(lm.fit,lwd=5,col="blue")
+
+```
+(c)  Plot the 97% confidence interval and prediction interval in the same plot as (b) using different colours and legends. 
+The codes used were :
+
+```{r}
+
+
+library(ISLR)
+data("Auto")
+
+lm.fit <- lm(mpg ~ acceleration)
+summary(lm.fit)
+
+
+
+p_pred <- predict(lm.fit, Auto, interval = "prediction", level = 0.97)
+p_conf <- predict(lm.fit, Auto , interval = "confidence", level = 0.97)
+
+attach(Auto)
+plot(Auto$acceleration,Auto$mpg, ylab = "Car Milage per gallon",xlab = "Time to accelerate from 0 to 60 mph (sec.)", 
+     main = "Confidence intervals and prediction intervals")
+abline(lm.fit,lwd=5,col="blue")
+
+lines(Auto$acceleration, p_conf[,"lwr"], col="red", type="b", pch="+") 
+lines(Auto$acceleration, p_conf[,"upr"], col="red", type="b", pch="+") 
+lines(Auto$acceleration, p_pred[,"upr"], col="blue", type="b", pch="*") 
+lines(Auto$acceleration, p_pred[,"lwr"], col="blue", type="b", pch="*")
+legend("topleft",
+       pch=c("+","*"), col=c("red","blue"),
+       legend = c("confidence","prediction"))
+
+```
+
+----------------------------------------------------------------------------------------------------------------------------------
+
+5. Logistic regression and cross validation
+
+A recent study has shown that the accurate prediction of the office room occupancy leads to potential energy savings of 30%. In this question, you are required to build logistic regression models by using different environmental measurements as predictors (features), such as temperature, humidity, light, CO2 and humidity ratio, to predict the office room occupancy. The provided training dataset consists of 2,000 observations, whilst the testing dataset consists of 300 observations. 
+
+
+(a)  Load the training and testing datasets from corresponding files, and display the statistics about different predictors in the training dataset. 
+
+```{r}
+
+# The codes used were loading training data:
+## File located on the computer desktop.
+
+mydataTrain <- read.csv(file= "/Users/rohankhanolkar/Desktop/Room_Occupancy_Training_set.txt",header = TRUE, sep = ",")
+
+dim(mydataTrain)
+summary(mydataTrain)
+nrow(mydataTrain)
+View(mydataTrain)
+
+
+
+# The codes used were loading testing data:
+
+mydataTest <- read.csv(file= "/Users/rohankhanolkar/Desktop/Room_Occupancy_Testing_set.txt",header = TRUE, sep = ",")
+
+dim(mydataTest)
+summary(mydataTest)
+nrow(mydataTest)
+View(mydataTest)
+
+
+```
+
+(b)  Conduct a 10-fold cross validation to evaluate the predictive accuracy of a logistic regression model that uses Temperature as the only predictor. Report the average accuracy and AUROC value obtained over the 10-fold cross validation. Set the value of random seed as “100” when generating fold indices. Consider the predictive label equals to 1, if the predictive probability is greater than 0.5. 
+
+```{r}
+
+#(i) First we load the Library and then we estimate the logistic regression model using glm() function and then create the summary :
+
+library(caret)
+library(ROCR)
+glm.fit <- glm(Occupancy ~ Temperature, data = mydataTrain, family = binomial)
+summary(glm.fit)
+
+# (ii) Now we use model to predict the training dataset and store the results to a vector :
+
+glm.probs <- predict(glm.fit, mydataTrain, type = "response")
+head(glm.probs)
+
+# (iii) Now we create another vector to show predictive label equals to 1, if the predictive probability is greater than 0.5
+
+glm.pred <- rep(1,2000)
+glm.pred[glm.probs<0.5] <- 0
+head(glm.pred)
+table(glm.pred,mydataTrain$Occupancy)
+mean(glm.pred == mydataTrain$Occupancy)
+
+# (iv) Now we  conduct a 10-fold cross validation to evaluate the predictive accuracy of a logistic regression model that uses Temperature as the only predictor and set.seed(100): 
+ 
+auc_value_temp <- as.numeric()
+set.seed(100)
+folds <- createFolds(y= mydataTrain[,6], k = 10)
+str(folds)
+
+# (v) Now we  conduct 10 fold cross validation find the average accuracy and AUROC value.
+
+for (i in 1:10) {
+  fold_cv_test <- mydataTrain[folds[[i]],]
+  fold_cv_train <- mydataTrain[-folds[[i]],]
+  trained_model_Temperature <- glm(Occupancy ~ Temperature, data = fold_cv_train, family = binomial)
+  pred_prob_Temperature <- predict(trained_model_Temperature, fold_cv_test, type = "response")
+  pr_Temperature <- prediction(pred_prob_Temperature, fold_cv_test$Occupancy)
+  auroc_Temperature <- performance(pr_Temperature, measure = "auc")
+  auroc_Temperature <- auroc_Temperature@y.values[[1]]
+print(auroc_Temperature)
+auc_value_temp <- append(auc_value_temp,auroc_Temperature)
+}
+print(auc_value_temp)
+print(mean(auc_value_temp))
+
+
+```
+
+(c)  Conduct a 10-fold cross validation to evaluate the predictive accuracy of a logistic regression model that uses HumidityRatio as the only predictor. Report the average accuracy and AUROC value obtained over the 10-fold cross validation. Set the value of random seed as “100” when generating fold indices. Consider the predictive label equals to 1, if the predictive probability is greater than 0.5. 
+
+```{r}
+##(c)  Conduct a 10-fold cross validation to evaluate the predictive accuracy of a 
+##logistic regression model that uses HumidityRatio as the only predictor. 
+##Report the average accuracy and AUROC value obtained over the 10-fold cross validation. 
+##Set the value of random seed as “100” when generating fold indices. 
+##Consider the predictive label equals to 1, if the predictive probability is greater than 0.5. 
+
+library(caret)
+library(ROCR)
+
+glm.fit2 <- glm(Occupancy ~ HumidityRatio, data = mydataTrain, family = binomial)
+summary(glm.fit2)
+glm.probs2 <- predict(glm.fit2, mydataTrain, type = "response")
+head(glm.probs2)
+glm.pred2 <- rep(1,2000)
+glm.pred2[glm.probs2>0.5] <- "1"
+head(glm.pred2)
+table(glm.pred2,mydataTrain$Occupancy)
+mean(glm.pred2 == mydataTrain$HumidityRatio)
+
+auc_value_humidity <- as.numeric()
+set.seed(100)
+folds2 <- createFolds(y= mydataTrain[,6], k = 10)
+str(folds2)
+
+for (i in 1:10) {
+  fold_cv_test2 <- mydataTrain[folds2[[i]],]
+  fold_cv_train2 <- mydataTrain[-folds2[[i]],]
+  trained_model_HumidityRatio <- glm(Occupancy ~ HumidityRatio, data = fold_cv_train2, family = binomial)
+  pred_prob_HumidityRatio <- predict(trained_model_HumidityRatio, fold_cv_test2, type = "response")
+  pr_HumidityRatio <- prediction(pred_prob_HumidityRatio, fold_cv_test2$Occupancy)
+  auroc_HumidityRatio <- performance(pr_HumidityRatio, measure = "auc")
+  auroc_HumidityRatio <- auroc_HumidityRatio@y.values[[1]]
+  print(auroc_HumidityRatio)
+  auc_value_humidity <- append(auc_value_humidity,auroc_HumidityRatio)
+}
+print(auc_value_humidity)
+print(mean(auc_value_humidity))
+
+
+
+```
+
+(d)  Conduct a 10-fold cross validation to evaluate the predictive accuracy of a logistic regression model that uses Temperature and HumidityRatio in the training dataset. Report the average accuracy and AUROC value obtained over the 10-fold cross validation. Set the value of random seed as “100” when generating fold indices. Consider the predictive label equals to 1, if the predictive probability is greater than 0.5. 
+
+
+```{r}
+library(caret)
+library(ROCR)
+
+glm.fit3 <- glm(Occupancy ~ Temperature + HumidityRatio, data = mydataTrain, family = binomial)
+summary(glm.fit3)
+glm.probs3 <- predict(glm.fit3, mydataTrain, type = "response")
+head(glm.probs3)
+glm.pred3 <- rep(1,2000)
+glm.pred3[glm.probs3>0.5] <- "1"
+head(glm.pred3)
+table(glm.pred3,mydataTrain$Occupancy)
+mean(glm.pred3 == mydataTrain$HumidityRatio + mydataTrain$Temperature)
+
+auc_value_temp_humidity <- as.numeric()
+set.seed(100)
+folds3 <- createFolds(y= mydataTrain[,6], k = 10)
+str(folds3)
+
+for (i in 1:10) {
+  fold_cv_test3 <- mydataTrain[folds3[[i]],]
+  fold_cv_train3 <- mydataTrain[-folds3[[i]],]
+  trained_model_Temp_Humidity <- glm(Occupancy ~ Temperature + HumidityRatio, data = fold_cv_train3, family = binomial)
+  pred_prob_Temp_Humidity <- predict(trained_model_Temp_Humidity, fold_cv_test3, type = "response")
+  pr_Temp_Humidity <- prediction(pred_prob_Temp_Humidity, fold_cv_test3$Occupancy)
+  auroc_Temp_Humidity <- performance(pr_Temp_Humidity, measure = "auc")
+  auroc_Temp_Humidity <- auroc_Temp_Humidity@y.values[[1]]
+  print(auroc_Temp_Humidity)
+  auc_value_temp_humidity <- append(auc_value_temp_humidity,auroc_Temp_Humidity)
+}
+print(auc_value_temp_humidity)
+print(mean(auc_value_temp_humidity))
+
+```
+(e)  Compare the performance of those three different models on predicting the testing dataset. Draw ROC curves for all individual models and calculating the corresponding AUROC values. Discuss the comparison results obtained by the 10-fold cross validation and the hold-out testing. 
+
+
+```{r}
+
+
+# Train different classifiers using the entire training dataset.
+
+trained_model_1 <- glm(Occupancy ~ Temperature, data = mydataTrain, family = binomial) 
+trained_model_2 <- glm(Occupancy ~ HumidityRatio, data = mydataTrain, family = binomial) 
+trained_model_3 <- glm(Occupancy ~ Temperature + HumidityRatio, data = mydataTrain, family = binomial)
+
+# Make predictions on testing instances by using different models.
+prediction_trained_model_1 <- predict(trained_model_1, mydataTest, type='response') 
+prediction_trained_model_2 <- predict(trained_model_2, mydataTest, type='response') 
+prediction_trained_model_3 <- predict(trained_model_3, mydataTest, type='response')
+
+pr_trained_model_1 <- prediction(prediction_trained_model_1, mydataTest$Occupancy) 
+pr_trained_model_2 <- prediction(prediction_trained_model_2, mydataTest$Occupancy) 
+pr_trained_model_3 <- prediction(prediction_trained_model_3, mydataTest$Occupancy)
+
+# Calculate the AUROC values obtained by different models.
+auroc_trained_model_1 <- performance(pr_trained_model_1, measure = "auc") 
+auroc_trained_model_2 <- performance(pr_trained_model_2, measure = "auc") 
+auroc_trained_model_3 <- performance(pr_trained_model_3, measure = "auc")
+auroc_trained_model_value_1 <- auroc_trained_model_1@y.values[[1]] 
+auroc_trained_model_value_2 <- auroc_trained_model_2@y.values[[1]] 
+auroc_trained_model_value_3 <- auroc_trained_model_3@y.values[[1]]
+auroc_trained_model_value_1
+auroc_trained_model_value_2
+auroc_trained_model_value_3
+# Calculate TPR and FPR values obtained by different models.
+prf_trained_model_1 <- performance(pr_trained_model_1, measure = "tpr", x.measure = "fpr")
+prf_trained_model_2 <- performance(pr_trained_model_2, measure = "tpr", x.measure = "fpr") 
+prf_trained_model_3 <- performance(pr_trained_model_3, measure = "tpr", x.measure = "fpr")
+
+# Draw ROC curves for different models.
+plot(prf_trained_model_1, col="blue")
+plot(prf_trained_model_2, col="orange", add=TRUE)
+plot(prf_trained_model_3, col="red", add=TRUE)
+legend(0.35,0.25, c(text=sprintf('AUROC(Temperature) = %s',round(auroc_trained_model_value_1,digits=3)),
+                    text=sprintf('AUROC(HumidityRatio) = %s',round(auroc_trained_model_value_2, digits=3)),
+                    text=sprintf('AUROC(Temperature + HumidityRatio) = %s',round(auroc_trained_model_value_3, digits = 3))),
+                    lty=1, cex=0.9, col = c("blue", "orange", "red"), bty="n", y.intersp=1, inset=c(0.1,-0.15))
+       
+
+
+```
+
+The Temperature + HumidityRatio has better accuracy amongst the three models as it has larger area under ROC curve (AUROC). You can notice the deviation towards True positive. This means that there is a relation between the Temperature and Humidity of rooms promotes increase in occupancy. The 10-K fold method is better  for testing data/ models like Temperature + HumidityRatio  to get accurate results. 
+
+
+
+
+
+
+
